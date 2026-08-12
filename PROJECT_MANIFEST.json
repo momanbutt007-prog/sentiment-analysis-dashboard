@@ -1,0 +1,12 @@
+{
+  "source_notebook": "/mnt/data/sentimantal_analysis_train.ipynb",
+  "charts_01_11": "extracted from actual notebook outputs",
+  "chart_12": "generated from exact notebook model comparison table",
+  "binary_models_available_in_upload": false,
+  "csv_files_available_in_upload": false,
+  "required_external_artifacts": [
+    "data/final_sentiment_dataset.csv",
+    "models/logistic_regression_C2_FINAL.pkl",
+    "models/tfidf_vectorizer.pkl"
+  ]
+}

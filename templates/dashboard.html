@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sentiment Intelligence Dashboard</title><link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script></head>
+<body><div class="shell wide"><nav class="nav"><a class="brand" href="{{ url_for('home') }}"><span class="brand-dot"></span>Sentiment Intelligence</a>
+<div class="nav-links"><a href="{{ url_for('home') }}">Predict</a><a class="active" href="{{ url_for('dashboard') }}">Dashboard</a></div></nav>
+<main class="dashboard"><div class="dash-head"><div><div class="eyebrow">TRUSTPILOT • ANALYTICS</div><h1>Sentiment Intelligence Dashboard</h1><p>Explore sentiment, ratings and company-level statistics.</p></div>
+<a class="btn ghost" href="{{ url_for('home') }}">← Live prediction</a></div>
+{% if error %}<div class="alert error">{{ error }}</div><div class="card setup-card"><h2>Dashboard data is not available yet</h2>
+<p>Place your final_sentiment_dataset.csv in <code>data/</code>, or change DATA_FILE in config.py.</p></div>
+{% else %}
+<div class="kpis"><div class="kpi"><span>Total reviews</span><strong>{{ data.total }}</strong></div><div class="kpi negative"><span>Negative</span><strong>{{ data.negative }}</strong></div>
+<div class="kpi positive"><span>Positive</span><strong>{{ data.positive }}</strong></div><div class="kpi neutral"><span>Neutral</span><strong>{{ data.neutral }}</strong></div>
+<div class="kpi"><span>Average rating</span><strong>{{ '%.2f'|format(data.avg_rating) }}/5</strong></div></div>
+<div class="grid-two"><section class="card chart-card"><h3>Overall Sentiment</h3><canvas id="sentimentChart"></canvas></section>
+<section class="card chart-card"><h3>Company Review Volume</h3><canvas id="companyChart"></canvas></section></div>
+<section class="card table-card"><h3>Company Comparison</h3><div class="table-wrap"><table>
+<thead><tr><th>Company</th><th>Reviews</th><th>Avg Rating</th><th>Sentiment Score</th><th>Negative %</th><th>Neutral %</th><th>Positive %</th></tr></thead><tbody>
+{% for row in data.company %}<tr><td><strong>{{ row.Company }}</strong></td><td>{{ row.Reviews }}</td><td>{{ '%.2f'|format(row.Average_Rating or 0) }}</td>
+<td>{{ '%.3f'|format(row.Sentiment_Score or 0) }}</td><td>{{ '%.1f'|format(row.Negative or 0) }}%</td><td>{{ '%.1f'|format(row.Neutral or 0) }}%</td><td>{{ '%.1f'|format(row.Positive or 0) }}%</td></tr>{% endfor %}
+</tbody></table></div></section>{% endif %}</main></div>
+{% if not error %}<script>
+const payload={{ data|tojson }};
+new Chart(document.getElementById('sentimentChart'),{type:'doughnut',data:{labels:payload.sentiment_labels,datasets:[{data:payload.sentiment_values}]},options:{plugins:{legend:{labels:{color:'#e9edf5'}}}}});
+new Chart(document.getElementById('companyChart'),{type:'bar',data:{labels:payload.company.map(x=>x.Company),datasets:[{label:'Reviews',data:payload.company.map(x=>x.Reviews)}]},options:{scales:{x:{ticks:{color:'#aeb7c7'},grid:{color:'rgba(255,255,255,.06)'}},y:{ticks:{color:'#aeb7c7'},grid:{color:'rgba(255,255,255,.06)'}}},plugins:{legend:{labels:{color:'#e9edf5'}}}}});
+</script>{% endif %}
+</body></html>

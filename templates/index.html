@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trustpilot Sentiment Analyzer</title><link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"></head>
+<body><div class="shell">
+<nav class="nav"><a class="brand" href="{{ url_for('home') }}"><span class="brand-dot"></span>Sentiment Intelligence</a>
+<div class="nav-links"><a href="{{ url_for('home') }}">Predict</a><a href="{{ url_for('dashboard') }}">Dashboard</a></div></nav>
+<main class="hero"><section class="hero-copy"><div class="eyebrow">NLP • MACHINE LEARNING • TRUSTPILOT</div>
+<h1>Understand what customers <span>really feel.</span></h1>
+<p>Enter a review and the production Logistic Regression model will classify it using the saved 5,000-feature TF-IDF pipeline.</p>
+<div class="mini-stats"><div><strong>983</strong><small>reviews</small></div><div><strong>5K</strong><small>TF-IDF features</small></div><div><strong>91.37%</strong><small>test accuracy</small></div></div></section>
+<section class="card predictor-card"><div class="card-head"><div><span class="tag">LIVE PREDICTION</span><h2>Trustpilot Sentiment Analyzer</h2></div><div class="model-pill">LR • C=2</div></div>
+{% if error %}<div class="alert error">{{ error }}</div>{% endif %}
+<form method="POST" action="{{ url_for('predict') }}"><label for="review">Customer review</label>
+<textarea id="review" name="review" maxlength="5000" placeholder="Example: The service was excellent and very easy to use...">{{ review }}</textarea>
+<div class="form-row"><button class="btn primary" type="submit">Predict Sentiment →</button><button class="btn ghost" type="button" onclick="document.getElementById('review').value=''">Clear</button><span class="hint">No external prediction API.</span></div></form>
+{% if result %}<div class="result-card {{ result.sentiment|lower }}"><div class="result-top"><div><span class="muted">Predicted sentiment</span><div class="sentiment-title">{{ result.sentiment }}</div></div>
+{% if result.confidence is not none %}<div class="confidence"><strong>{{ '%.1f'|format(result.confidence*100) }}%</strong><span>confidence</span></div>{% endif %}</div>
+{% if result.probabilities %}<div class="probabilities">{% for label in ['Negative','Neutral','Positive'] %}{% if label in result.probabilities %}
+<div class="prob-row"><div class="prob-label"><span>{{ label }}</span><strong>{{ '%.1f'|format(result.probabilities[label]*100) }}%</strong></div>
+<div class="bar"><span style="width:{{ result.probabilities[label]*100 }}%"></span></div></div>{% endif %}{% endfor %}</div>{% endif %}</div>{% endif %}
+</section></main><footer><span>Trustpilot Review Sentiment Analysis</span><span>Flask • TF-IDF • Logistic Regression C=2</span></footer>
+</div></body></html>
