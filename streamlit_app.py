@@ -42,29 +42,30 @@ st.set_page_config(
 
 
 # ============================================================
-# COLOR PALETTE (shared across every chart)
+# COLOR PALETTE (shared across every chart) — Amber / Rose / Emerald
 # ============================================================
 
-ACCENT_TEAL = "#2dd4bf"
-ACCENT_BLUE = "#2563eb"
-ACCENT_VIOLET = "#7c3aed"
-ACCENT_PINK = "#ec4899"
-ACCENT_AMBER = "#fbbf24"
+ACCENT_AMBER = "#f59e0b"
+ACCENT_ROSE = "#fb7185"
+ACCENT_EMERALD = "#34d399"
+ACCENT_SKY = "#38bdf8"
+ACCENT_VIOLET = "#a78bfa"
 ACCENT_RED = "#f87171"
 
 SENTIMENT_COLORS = {
-    "Negative": ACCENT_RED,
+    "Negative": ACCENT_ROSE,
     "Neutral": ACCENT_AMBER,
-    "Positive": ACCENT_TEAL,
+    "Positive": ACCENT_EMERALD,
 }
 
 PLOTLY_LAYOUT = dict(
     paper_bgcolor="rgba(0,0,0,0)",
     plot_bgcolor="rgba(0,0,0,0)",
-    font=dict(family="Inter, sans-serif", color="#e8ecf7", size=13),
+    font=dict(family="Inter, sans-serif", color="#f1ede6", size=13),
     title_font=dict(family="Poppins, sans-serif", size=16, color="#ffffff"),
     margin=dict(l=10, r=10, t=50, b=10),
     legend=dict(bgcolor="rgba(0,0,0,0)"),
+    colorway=[ACCENT_AMBER, ACCENT_ROSE, ACCENT_EMERALD, ACCENT_SKY, ACCENT_VIOLET],
     xaxis=dict(gridcolor="rgba(255,255,255,0.06)", zerolinecolor="rgba(255,255,255,0.08)"),
     yaxis=dict(gridcolor="rgba(255,255,255,0.06)", zerolinecolor="rgba(255,255,255,0.08)"),
 )
@@ -88,22 +89,22 @@ st.markdown(
     html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
     h1, h2, h3, h4 { font-family: 'Poppins', sans-serif !important; }
 
-    /* ---------- Dual-tone professional background ---------- */
+    /* ---------- Warm charcoal-indigo professional background ---------- */
     .stApp {
         background:
-            radial-gradient(circle at 10% -10%, rgba(45, 212, 191, 0.10) 0%, transparent 42%),
-            radial-gradient(circle at 92% 4%, rgba(99, 102, 241, 0.14) 0%, transparent 50%),
-            radial-gradient(circle at 50% 105%, rgba(236, 72, 153, 0.05) 0%, transparent 55%),
-            linear-gradient(165deg, #0a1120 0%, #0d1830 45%, #081020 100%);
-        color: #eef1fa;
+            radial-gradient(circle at 8% -8%, rgba(245, 158, 11, 0.08) 0%, transparent 40%),
+            radial-gradient(circle at 92% 6%, rgba(251, 113, 133, 0.10) 0%, transparent 48%),
+            radial-gradient(circle at 50% 105%, rgba(52, 211, 153, 0.06) 0%, transparent 55%),
+            linear-gradient(165deg, #12100f 0%, #1b1620 45%, #100d16 100%);
+        color: #f1ede6;
     }
 
     /* ---------- Hero banner ---------- */
     .hero-banner {
         padding: 1.9rem 2.4rem;
         border-radius: 22px;
-        background: linear-gradient(120deg, #0f766e 0%, #2563eb 55%, #7c3aed 100%);
-        box-shadow: 0 20px 45px rgba(20, 60, 120, 0.35);
+        background: linear-gradient(120deg, #7c2d12 0%, #9d174d 55%, #4c1d95 100%);
+        box-shadow: 0 20px 45px rgba(120, 40, 60, 0.35);
         margin-bottom: 1.4rem;
         position: relative;
         overflow: hidden;
@@ -180,20 +181,20 @@ st.markdown(
         margin: 0.15rem 0.3rem 0.15rem 0;
     }
 
-    .badge-neg { color: #fca5a5 !important; border-color: rgba(248,113,113,0.35) !important; background: rgba(248,113,113,0.10) !important; }
-    .badge-pos { color: #5eead4 !important; border-color: rgba(45,212,191,0.35) !important; background: rgba(45,212,191,0.10) !important; }
-    .badge-neu { color: #fde68a !important; border-color: rgba(251,191,36,0.35) !important; background: rgba(251,191,36,0.10) !important; }
+    .badge-neg { color: #fda4af !important; border-color: rgba(251,113,133,0.35) !important; background: rgba(251,113,133,0.10) !important; }
+    .badge-pos { color: #6ee7b7 !important; border-color: rgba(52,211,153,0.35) !important; background: rgba(52,211,153,0.10) !important; }
+    .badge-neu { color: #fcd34d !important; border-color: rgba(245,158,11,0.35) !important; background: rgba(245,158,11,0.10) !important; }
 
     /* ---------- Sidebar ---------- */
     section[data-testid="stSidebar"] {
         background:
-            radial-gradient(circle at 30% 0%, rgba(45,212,191,0.08), transparent 45%),
-            radial-gradient(circle at 90% 40%, rgba(124,58,237,0.10), transparent 50%),
-            linear-gradient(180deg, #0c1226 0%, #060a16 100%);
+            radial-gradient(circle at 30% 0%, rgba(245,158,11,0.07), transparent 45%),
+            radial-gradient(circle at 90% 40%, rgba(251,113,133,0.08), transparent 50%),
+            linear-gradient(180deg, #16121a 0%, #0c0a10 100%);
         border-right: 1px solid rgba(255,255,255,0.07);
     }
 
-    section[data-testid="stSidebar"] * { color: #eef1fa !important; }
+    section[data-testid="stSidebar"] * { color: #f1ede6 !important; }
 
     .sb-logo-wrap { text-align: center; padding: 0.6rem 0 0.4rem 0; }
 
@@ -206,8 +207,8 @@ st.markdown(
         align-items: center;
         justify-content: center;
         font-size: 1.7rem;
-        background: linear-gradient(135deg, #0f766e, #2563eb 55%, #7c3aed);
-        box-shadow: 0 10px 26px rgba(37,99,235,0.35);
+        background: linear-gradient(135deg, #7c2d12, #9d174d 55%, #4c1d95);
+        box-shadow: 0 10px 26px rgba(157,23,77,0.35);
     }
 
     .sb-title {
@@ -244,7 +245,7 @@ st.markdown(
         align-items: center;
         justify-content: center;
         font-size: 0.8rem;
-        background: linear-gradient(135deg, rgba(45,212,191,0.28), rgba(124,58,237,0.28));
+        background: linear-gradient(135deg, rgba(245,158,11,0.28), rgba(251,113,133,0.28));
         border: 1px solid rgba(255,255,255,0.12);
     }
 
@@ -262,8 +263,8 @@ st.markdown(
     }
 
     section[data-testid="stSidebar"] div[role="radiogroup"] label:hover {
-        background: rgba(45,212,191,0.10);
-        border-color: rgba(45,212,191,0.35);
+        background: rgba(245,158,11,0.10);
+        border-color: rgba(245,158,11,0.35);
     }
 
     /* Sidebar multiselect boxes */
@@ -274,19 +275,19 @@ st.markdown(
     }
 
     section[data-testid="stSidebar"] span[data-baseweb="tag"] {
-        background: linear-gradient(120deg, #0f766e, #2563eb) !important;
+        background: linear-gradient(120deg, #b45309, #9d174d) !important;
         border-radius: 8px !important;
     }
 
     /* ---------- Buttons ---------- */
     .stButton>button {
-        background: linear-gradient(120deg, #0f766e, #2563eb);
+        background: linear-gradient(120deg, #b45309, #9d174d);
         color: white;
         border: none;
         border-radius: 12px;
         padding: 0.6rem 1.4rem;
         font-weight: 600;
-        box-shadow: 0 8px 20px rgba(20,60,120,0.35);
+        box-shadow: 0 8px 20px rgba(157,23,77,0.35);
     }
 
     /* ---------- Text area ---------- */
@@ -581,7 +582,7 @@ elif page == "Company Analysis":
             color_discrete_map={
                 "Negative_Pct": ACCENT_RED,
                 "Neutral_Pct": ACCENT_AMBER,
-                "Positive_Pct": ACCENT_TEAL,
+                "Positive_Pct": ACCENT_EMERALD,
             },
         )
         fig.update_layout(yaxis_title="Percentage")
@@ -640,7 +641,7 @@ elif page == "Model Performance":
         markers=True,
         log_x=True,
         title="Hyperparameter Tuning (Regularization C)",
-        color_discrete_sequence=[ACCENT_BLUE, ACCENT_VIOLET],
+        color_discrete_sequence=[ACCENT_AMBER, ACCENT_VIOLET],
     )
     fig.update_traces(line=dict(width=3), marker=dict(size=8))
     st.plotly_chart(style_fig(fig), use_container_width=True)
@@ -705,7 +706,7 @@ else:
         <div class="section-card">
             <h4>🏆 Final Result</h4>
             <span class="pill-tag badge-pos">91.37% Accuracy</span>
-            <span class="pill-tag" style="color:#93c5fd; border-color:rgba(37,99,235,0.35); background:rgba(37,99,235,0.10);">0.5845 Macro F1</span>
+            <span class="pill-tag" style="color:#c4b5fd; border-color:rgba(167,139,250,0.35); background:rgba(167,139,250,0.10);">0.5845 Macro F1</span>
         </div>
 
         <div class="section-card">
